@@ -7,6 +7,7 @@ import { FormField } from '~/components/Form/FormField'
 import { handleFirebaseErrors } from '~/utils/firebase-errors'
 import { auth } from '~/lib/firebase'
 import { useAppDispatch } from '~/redux/hooks'
+import { setUser } from '~/redux/reducers/auth'
 export const loginValidator = z.object({
 	email: z
 		.string()
@@ -19,19 +20,24 @@ type Fields = z.infer<typeof loginValidator>
 
 const SignInViaFirebase = async ({ email, password }: Fields) => {
 	const { user } = await signInWithEmailAndPassword(auth, email, password)
+
 	return user
 }
 export default function Login() {
 	const [errors, setErrors] = useState<z.ZodError<Fields> | null>(null)
 	const dispatch = useAppDispatch()
-	const { isLoading, mutate, data, isError, error, isSuccess } = useMutation(
-		SignInViaFirebase,
-		{
-			async onError(error: FirebaseError) {
-				return error
-			},
-		}
-	)
+	const {
+		isLoading,
+		mutate,
+		data: user,
+		isError,
+		error,
+		isSuccess,
+	} = useMutation(SignInViaFirebase, {
+		async onError(error: FirebaseError) {
+			return error
+		},
+	})
 	const SignIn = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
@@ -41,7 +47,8 @@ export default function Login() {
 			mutate({ email: result.data.email, password: result.data.password })
 		else setErrors(result.error)
 	}
-	if (data) {
+	if (user) {
+		dispatch(setUser({ user }))
 		return <Navigate to="/home" replace={true} />
 	}
 	return (
