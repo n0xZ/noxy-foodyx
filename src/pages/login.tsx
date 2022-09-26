@@ -48,7 +48,6 @@ export default function Login() {
 		else setErrors(result.error)
 	}
 	if (user) {
-		dispatch(setUser({ user }))
 		return <Navigate to="/home" replace={true} />
 	}
 	return (

@@ -6,6 +6,8 @@ import { auth } from '~/lib/firebase'
 import { FormField } from '~/components/Form/FormField'
 import { useMutation } from '@tanstack/react-query'
 import { FirebaseError } from 'firebase/app'
+import { setUser } from '~/redux/reducers/auth'
+import { useAppDispatch } from '~/redux/hooks'
 
 export const registerValidator = z.object({
 	email: z
@@ -23,14 +25,19 @@ const SignUpViaFirebaes = async ({ email, password }: Fields) => {
 }
 export default function Register() {
 	const [errors, setErrors] = useState<z.ZodError<Fields> | null>(null)
-	const { isLoading, mutate, data, isError, error, isSuccess } = useMutation(
-		SignUpViaFirebaes,
-		{
-			async onError(error: FirebaseError) {
-				return error
-			},
-		}
-	)
+	const {
+		isLoading,
+		mutate,
+		data: user,
+		isError,
+		error,
+		isSuccess,
+	} = useMutation(SignUpViaFirebaes, {
+		async onError(error: FirebaseError) {
+			return error
+		},
+	})
+	const dispatch = useAppDispatch()
 	const SignUp = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
@@ -39,6 +46,9 @@ export default function Register() {
 		if (result.success)
 			mutate({ email: result.data.email, password: result.data.password })
 		else setErrors(result.error)
+	}
+	if (user) {
+		return <Navigate to="/home" replace={true} />
 	}
 	return (
 		<section className="min-h-screen hero bg-base-200">
