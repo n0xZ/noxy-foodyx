@@ -1,7 +1,12 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-
+import React from '@vitejs/plugin-react'
+import Unocss from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()]
+	plugins: [
+		React(),
+		Unocss(),
+		AutoImport({ imports: ['react-router-dom', 'react'] }),
+	],
 })
