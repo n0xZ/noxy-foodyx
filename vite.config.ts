@@ -1,14 +1,15 @@
 import { defineConfig } from 'vite'
 import React from '@vitejs/plugin-react'
-import Unocss from 'unocss/vite'
-import { presetUno, presetAttributify } from 'unocss'
+import WindiCSS from 'vite-plugin-windicss'
+
 import AutoImport from 'unplugin-auto-import/vite'
 import { resolve } from 'path'
 
 export default defineConfig({
 	plugins: [
 		React(),
-		Unocss({ presets: [presetUno(), presetAttributify()] }),
+		WindiCSS(),
+
 		AutoImport({ imports: ['react-router-dom', 'react'] }),
 	],
 	resolve: {
