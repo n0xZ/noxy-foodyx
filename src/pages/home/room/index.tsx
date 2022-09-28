@@ -1,11 +1,12 @@
+import Camera from '~/components/camera/Camera'
 import { usePeerConnection } from '~/hooks/usePeerConnection'
 
 export default function Room() {
-	const { localStream, cameraRef } = usePeerConnection()
+	const { localStream, localRef } = usePeerConnection()
 	return (
 		<div>
 			<div>bienvenido a la sala!</div>
-			<video autoPlay muted playsInline></video>
+			<Camera cameraRef={localRef} />
 		</div>
 	)
 }

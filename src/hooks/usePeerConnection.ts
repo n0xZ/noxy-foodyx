@@ -14,15 +14,28 @@ export const usePeerConnection = () => {
 	}
 	const peers = new RTCPeerConnection(servers)
 	const [localStream, setLocalStream] = useState<MediaStream | null>(null)
-	const cameraRef = useRef<LegacyRef<HTMLVideoElement>>(null)
+
+	const localRef = useRef<HTMLVideoElement>({} as HTMLVideoElement)
+	const remoteRef = useRef<HTMLVideoElement>({} as HTMLVideoElement)
 
 	const setupDevices = async () => {
-		await navigator.mediaDevices
-			.getUserMedia({ video: { height: 400, width: 400 }, audio: true })
-			.then((mediaDevices) => {
-				setLocalStream(mediaDevices)
+		const stream = await navigator.mediaDevices.getUserMedia({
+			video: { height: 400, width: 400 },
+			audio: true,
+		})
+
+		const remoteStream = new MediaStream()
+
+		localStream?.getTracks().forEach((track) => {
+			peers.addTrack(track, localStream)
+		})
+		peers.ontrack = (e) => {
+			e.streams[0].getTracks().forEach((track) => {
+				remoteStream.addTrack(track)
 			})
-		console.log(localStream?.getAudioTracks())
+		}
+		localRef.current.srcObject = localStream
+		remoteRef.current.srcObject = remoteStream
 	}
 
 	useEffect(() => {
@@ -33,7 +46,7 @@ export const usePeerConnection = () => {
 	}, [500])
 	return {
 		localStream,
-
-		cameraRef,
+		remoteRef,
+		localRef,
 	}
 }
