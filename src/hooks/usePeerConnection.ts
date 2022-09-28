@@ -1,4 +1,4 @@
-import { LegacyRef } from 'react'
+import { firestore } from '~/lib/firebase'
 
 export const usePeerConnection = () => {
 	const servers = {
@@ -13,7 +13,6 @@ export const usePeerConnection = () => {
 		iceCandidatePoolSize: 10,
 	}
 	const peers = new RTCPeerConnection(servers)
-	const [localStream, setLocalStream] = useState<MediaStream | null>(null)
 
 	const localRef = useRef<HTMLVideoElement>({} as HTMLVideoElement)
 	const remoteRef = useRef<HTMLVideoElement>({} as HTMLVideoElement)
@@ -26,15 +25,15 @@ export const usePeerConnection = () => {
 
 		const remoteStream = new MediaStream()
 
-		localStream?.getTracks().forEach((track) => {
-			peers.addTrack(track, localStream)
+		stream?.getTracks().forEach((track) => {
+			peers.addTrack(track, stream)
 		})
 		peers.ontrack = (e) => {
 			e.streams[0].getTracks().forEach((track) => {
 				remoteStream.addTrack(track)
 			})
 		}
-		localRef.current.srcObject = localStream
+		localRef.current.srcObject = stream
 		remoteRef.current.srcObject = remoteStream
 	}
 
@@ -43,9 +42,8 @@ export const usePeerConnection = () => {
 		return () => {
 			peers.close()
 		}
-	}, [500])
+	}, [])
 	return {
-		localStream,
 		remoteRef,
 		localRef,
 	}
