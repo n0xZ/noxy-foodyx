@@ -1,6 +1,6 @@
-import { FormEvent } from 'react'
-import { useMutation } from '@tanstack/react-query'
-import { FirebaseError } from 'firebase/app'
+import type { FormEvent } from 'react'
+import { useMutation } from 'react-query'
+import type { FirebaseError } from 'firebase/app'
 import { z } from 'zod'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { FormField } from '~/components/Form/FormField'
@@ -25,6 +25,7 @@ const SignInViaFirebase = async ({ email, password }: Fields) => {
 }
 export default function Login() {
 	const [errors, setErrors] = useState<z.ZodError<Fields> | null>(null)
+	const navigate = useNavigate()
 	const dispatch = useAppDispatch()
 	const {
 		isLoading,
@@ -34,22 +35,24 @@ export default function Login() {
 		error,
 		isSuccess,
 	} = useMutation(SignInViaFirebase, {
+		async onSuccess() {
+			return navigate('/home')
+		},
 		async onError(error: FirebaseError) {
 			return error
 		},
 	})
 	const SignIn = (e: FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
 		const inputEntries = Object.fromEntries(formData)
 		const result = loginValidator.safeParse(inputEntries)
 		if (result.success)
 			mutate({ email: result.data.email, password: result.data.password })
 		else setErrors(result.error)
+		e.preventDefault()
 	}
-	if (user) {
-		return <Navigate to="/home" replace={true} />
-	}
+	if (user) return <Navigate to="/home" replace={true} />
+
 	return (
 		<section className="min-h-screen hero bg-base-200">
 			<article className="flex-col hero-content lg:flex-row-reverse">

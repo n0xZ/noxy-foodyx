@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import 'virtual:windi.css'

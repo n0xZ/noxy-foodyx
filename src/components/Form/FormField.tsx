@@ -1,13 +1,14 @@
-import { InputHTMLAttributes, ReactNode } from 'react'
+import type { InputHTMLAttributes } from 'react'
+import { ReactNode } from 'react'
 
 interface Field extends InputHTMLAttributes<HTMLInputElement> {
-	label: string
-	type: string
-	name: string
-	errors?: string
+  label: string
+  type: string
+  name: string
+  errors?: string
 }
 export const FormField = ({ label, name, type, errors, ...rest }: Field) => {
-	return (
+  return (
 		<aside className="w-full max-w-xs space-y-0 form-control">
 			<label className="font-bold label label-text">{label}</label>
 			<input
@@ -20,5 +21,5 @@ export const FormField = ({ label, name, type, errors, ...rest }: Field) => {
 				{errors && errors}
 			</span>
 		</aside>
-	)
+  )
 }

@@ -1,8 +1,8 @@
 {
   "name": "proyix",
-  "private": true,
-  "version": "0.0.0",
   "type": "module",
+  "version": "0.0.0",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -11,12 +11,14 @@
   "dependencies": {
     "@headlessui/react": "^1.7.2",
     "@reduxjs/toolkit": "^1.8.5",
-    "@tanstack/react-query": "^4.6.1",
+    "@zodios/core": "^9.3.2",
+    "axios": "^0.27.2",
     "domain-functions": "^1.1.0",
     "firebase": "^9.10.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-error-boundary": "^3.1.4",
+    "react-query": "3",
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.4.1",
     "zod": "^3.19.1"
