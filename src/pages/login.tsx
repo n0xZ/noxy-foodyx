@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react'
-import { useMutation } from 'react-query'
+import { useMutation } from '@tanstack/react-query'
 import type { FirebaseError } from 'firebase/app'
 import { z } from 'zod'
 import { signInWithEmailAndPassword } from 'firebase/auth'
