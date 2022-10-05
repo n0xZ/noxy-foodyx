@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import RecipeList from '~/components/recipe/RecipeList'
 import { getRecipes } from '~/services/recipes'
 
 export default function HomePage() {
@@ -7,7 +8,7 @@ export default function HomePage() {
 	)
 	return (
 		<section className="h-full grid xl:grid-cols-2 grid-cols-1 place-items-cener">
-			{!isLoading && JSON.stringify(recipes?.results)}
+			{!isLoading && recipes && <RecipeList recipes={recipes.results}/>}
 		</section>
 	)
 }

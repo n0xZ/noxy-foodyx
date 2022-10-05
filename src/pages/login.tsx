@@ -36,7 +36,7 @@ export default function Login() {
 		isSuccess,
 	} = useMutation(SignInViaFirebase, {
 		async onSuccess() {
-			return navigate('/home')
+			return navigate('/home/general')
 		},
 		async onError(error: FirebaseError) {
 			return error
