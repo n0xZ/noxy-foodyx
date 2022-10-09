@@ -10,102 +10,101 @@ import { setUser } from '~/redux/reducers/auth'
 import { useAppDispatch } from '~/redux/hooks'
 
 export const registerValidator = z.object({
-  email: z
-    .string()
-    .min(5, { message: 'Campo requerido' })
-    .email({ message: 'Formato de email ingresado no válido' }),
-  password: z.string().min(5, { message: 'Campo requerido' }),
+	email: z
+		.string()
+		.min(5, { message: 'Campo requerido' })
+		.email({ message: 'Formato de email ingresado no válido' }),
+	password: z.string().min(5, { message: 'Campo requerido' }),
 })
 
 type Fields = z.infer<typeof registerValidator>
 
 const SignUpViaFirebaes = async ({ email, password }: Fields) => {
-  const { user } = await createUserWithEmailAndPassword(auth, email, password)
-  return user
+	const { user } = await createUserWithEmailAndPassword(auth, email, password)
+	return user
 }
 export default function Register() {
-  const [errors, setErrors] = useState<z.ZodError<Fields> | null>(null)
-  const {
-    isLoading,
-    mutate,
-    data: user,
-    isError,
-    error,
-    isSuccess,
-  } = useMutation(SignUpViaFirebaes, {
-    async onError(error: FirebaseError) {
-      return error
-    },
-  })
-  const dispatch = useAppDispatch()
-  const SignUp = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const inputEntries = Object.fromEntries(formData)
-    const result = registerValidator.safeParse(inputEntries)
-    if (result.success)
-      mutate({ email: result.data.email, password: result.data.password })
-    else setErrors(result.error)
-  }
-  if (user)
-    return <Navigate to="/home" replace={true} />
+	const [errors, setErrors] = useState<z.ZodError<Fields> | null>(null)
+	const navigate = useNavigate()
+	const {
+		isLoading,
+		mutate,
 
-  return (
-		<section className="min-h-screen hero bg-base-200">
-			<article className="flex-col hero-content lg:flex-row-reverse">
-				<div className="text-center lg:text-left">
+		isError,
+		error,
+		isSuccess,
+	} = useMutation(SignUpViaFirebaes, {
+		async onSuccess() {
+			return navigate('/home/general')
+		},
+		async onError(error: FirebaseError) {
+			return error
+		},
+	})
+
+	const SignUp = (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		const formData = new FormData(e.currentTarget)
+		const inputEntries = Object.fromEntries(formData)
+		const result = registerValidator.safeParse(inputEntries)
+		if (result.success)
+			mutate({ email: result.data.email, password: result.data.password })
+		else setErrors(result.error)
+	}
+
+	return (
+		<section className="h-screen ">
+			<article className="grid  lg:grid-cols-2 xl:grid-cols-2 grid-cols-1 h-full place-items-center container mx-auto">
+				<aside className="text-center lg:text-left">
 					<h1 className="text-4xl font-bold text-center">
-						Conéctate con tus amigos de várias partes del país!
+						Encuentra las recetas que facilitarán tu día a día!
 					</h1>
 					<p className="py-6 text-center">
-						En Proyix, puedes crear tus salas de reuniones, donde puedes contactar con
-						tus amigos de varias partes del país.
+						Estás a nada de poder encontrar las recetas que te salvarán tus mediodías
+						y noches en Foodyx!
 					</p>
-				</div>
+				</aside>
 
-				<div className="flex-shrink-0 w-full max-w-sm shadow-2xl card bg-base-100">
-					<form
-						onSubmit={SignUp}
-						ref={e => isSuccess && e?.reset()}
-						method="post"
-						className="grid card-body place-items-center"
+				<form
+					onSubmit={SignUp}
+					ref={(e) => isSuccess && e?.reset()}
+					method="post"
+					className="flex flex-col justify-center space-y-2 lg:max-w-md max-w-lg container mx-auto p-2"
+				>
+					<FormField
+						label="Correo electrónico"
+						name="email"
+						type="email"
+						errors={
+							errors?.formErrors.fieldErrors.email &&
+							errors?.formErrors.fieldErrors.email[0]
+						}
+						data-test="email-input"
+					/>
+					<FormField
+						label="Contraseña"
+						name="password"
+						type="password"
+						errors={
+							errors?.formErrors.fieldErrors.email &&
+							errors?.formErrors.fieldErrors.email[0]
+						}
+						data-test="password-input"
+					/>
+
+					<button
+						type="submit"
+						className="px-8 py-4 bg-orange-400 font-bold text-light-50 rounded-lg "
+						disabled={isLoading}
+						name="submit-login"
 					>
-						<FormField
-							label="Correo electrónico"
-							name="email"
-							type="email"
-							errors={
-								errors?.formErrors.fieldErrors.email
-								&& errors?.formErrors.fieldErrors.email[0]
-							}
-							data-test="email-input"
-						/>
-						<FormField
-							label="Contraseña"
-							name="password"
-							type="password"
-							errors={
-								errors?.formErrors.fieldErrors.email
-								&& errors?.formErrors.fieldErrors.email[0]
-							}
-							data-test="password-input"
-						/>
-
-						<button
-							type="submit"
-							className="btn btn-primary "
-							disabled={isLoading}
-							name="submit-login"
-						>
-							{!isLoading ? 'Registrarse en proyix' : 'Cargando...'}
-						</button>
-						<Link to="/login">Ya tengo una cuenta</Link>
-						<span className="text-red-500 h-9 ">
-							{isError && handleFirebaseErrors(error.message)}
-						</span>
-					</form>
-				</div>
+						{!isLoading ? 'Registrarse en proyix' : 'Cargando...'}
+					</button>
+					<span className="text-red-500 h-9 ">
+						{isError && handleFirebaseErrors(error.message)}
+					</span>
+				</form>
 			</article>
 		</section>
-  )
+	)
 }

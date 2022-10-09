@@ -1,26 +1,25 @@
-
-
 export default function Landing() {
 	return (
-		<div className="h-screen bg-sky-100">
+		<div className="h-screen ">
 			<header className="px-8 py-6 ">
-				<nav className="flex flex-row items-center justify-between container mx-auto max-w-5xl">
+				<nav className="flex flex-row items-center justify-between container mx-auto max-w-5xl xl:text-lg text-base font-bold">
 					<h1>
-						<NavLink to="/">Proyix</NavLink>
+						<NavLink to="/" className="no-underline">
+							Proyix
+						</NavLink>
 					</h1>
-					<ul className="flex flex-row items-center space-x-4">
+					<ul className="flex flex-row items-center space-x-4 font-bold ">
 						<li>
-							<NavLink to="/login" className="px-8 py-4 rounded-lg bg-sky-400">
+							<NavLink to="/login" className="px-8 py-4 rounded-lg no-underline">
 								Iniciar sesión
 							</NavLink>
 						</li>
 						<li>
-							<NavLink to="/register">Unete ya!</NavLink>
-						</li>
-
-						<li>
-							<NavLink to="/home" className="px-8 py-4 rounded-lg bg-sky-400">
-								Home
+							<NavLink
+								to="/register"
+								className="px-8 py-4 rounded-lg bg-orange-400  no-underline text-light-50"
+							>
+								Unete ya!
 							</NavLink>
 						</li>
 					</ul>

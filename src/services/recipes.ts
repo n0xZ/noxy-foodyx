@@ -4,9 +4,6 @@ type RecipeQuery = {
 	from: number
 	size: number
 }
-export const getRecipes = async ({
-	from,
-	size,
-}: RecipeQuery): Promise<RecipeResponse> => {
+export const getRecipes = async (): Promise<RecipeResponse> => {
 	return await api.get(`/recipes/list`).then((res) => res.data)
 }
