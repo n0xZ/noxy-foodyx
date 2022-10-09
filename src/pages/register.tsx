@@ -29,7 +29,7 @@ export default function Register() {
 	const {
 		isLoading,
 		mutate,
-
+		data: user,
 		isError,
 		error,
 		isSuccess,
@@ -51,7 +51,7 @@ export default function Register() {
 			mutate({ email: result.data.email, password: result.data.password })
 		else setErrors(result.error)
 	}
-
+	if (user) return <Navigate to="/home/general" replace={true} />
 	return (
 		<section className="h-screen ">
 			<article className="grid  lg:grid-cols-2 xl:grid-cols-2 grid-cols-1 h-full place-items-center container mx-auto">

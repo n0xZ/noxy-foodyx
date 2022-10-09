@@ -3,12 +3,20 @@ import type { ReactNode } from 'react'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from '~/lib/firebase'
 import { removeUser, setUser } from '~/redux/reducers/auth'
-function PrivateLayout({ children }: { children: ReactNode }) {
+
+export default function HomeOutlet() {
 	const navigate = useNavigate()
+	const dispatch = useAppDispatch()
 	const SignOut = () => {
 		navigate('/')
 		signOut(auth)
 	}
+	onAuthStateChanged(auth, (user) => {
+		if (user) {
+			dispatch(setUser({ userInfo: user }))
+		} else dispatch(removeUser())
+	})
+	console.log('Redireccionei')
 	return (
 		<>
 			<header className="px-8 py-4 ">
@@ -37,35 +45,9 @@ function PrivateLayout({ children }: { children: ReactNode }) {
 					</ul>
 				</nav>
 			</header>
-			<main className="h-screen">{children}</main>
+			<main className="h-screen">
+				<Outlet />
+			</main>
 		</>
-	)
-}
-
-export default function HomeOutlet() {
-	const { userInfo, isLoading } = useAppSelector((state) => state.auth)
-
-	const dispatch = useAppDispatch()
-
-	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			dispatch(
-				setUser({
-					userInfo: {
-						photoURL: user.photoURL,
-						displayName: user.displayName,
-						email: user.email,
-					},
-				})
-			)
-		}
-		if (!user) dispatch(removeUser())
-	})
-
-	if (!isLoading && !userInfo) return <Navigate to="/login" replace={true} />
-	return (
-		<PrivateLayout>
-			<Outlet />
-		</PrivateLayout>
 	)
 }

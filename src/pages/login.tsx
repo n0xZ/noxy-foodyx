@@ -30,14 +30,11 @@ export default function Login() {
 	const {
 		isLoading,
 		mutate,
-
+		data: user,
 		isError,
 		error,
 		isSuccess,
 	} = useMutation(SignInViaFirebase, {
-		async onSuccess() {
-			return navigate('/home/general')
-		},
 		async onError(error: FirebaseError) {
 			return error
 		},
@@ -51,7 +48,7 @@ export default function Login() {
 		else setErrors(result.error)
 		e.preventDefault()
 	}
-
+	if (user) return <Navigate to="/home/general" replace={true} />
 	return (
 		<section className="h-screen hero ">
 			<article className="grid lg:grid-cols-2 xl:grid-cols-2 grid-cols-1 h-full place-items-center container mx-auto">
