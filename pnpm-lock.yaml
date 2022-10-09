@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@headlessui/react': ^1.7.2
+  '@playwright/test': ^1.27.0
   '@reduxjs/toolkit': ^1.8.5
   '@tanstack/react-query': ^4.10.1
   '@types/node': ^18.7.22
@@ -39,6 +40,7 @@ dependencies:
   zod: 3.19.1
 
 devDependencies:
+  '@playwright/test': 1.27.0
   '@types/node': 18.7.22
   '@types/react': 18.0.20
   '@types/react-dom': 18.0.6
@@ -990,6 +992,15 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
+    dev: true
+
+  /@playwright/test/1.27.0:
+    resolution: {integrity: sha512-L4BswoJvGkFsEHhEgzVNHBnkFB1FbnBQn3QmvTl7+AouoJQ4a8tLwZKvytdovCsNi7B5cXuRo58yGvfM5PnExw==}
+    engines: {node: '>=14'}
+    hasBin: true
+    dependencies:
+      '@types/node': 18.7.22
+      playwright-core: 1.27.0
     dev: true
 
   /@protobufjs/aspromise/1.1.2:
@@ -2114,6 +2125,12 @@ packages:
       jsonc-parser: 3.2.0
       mlly: 0.5.16
       pathe: 0.3.8
+    dev: true
+
+  /playwright-core/1.27.0:
+    resolution: {integrity: sha512-VBKaaFUVKDo3akW+o4DwbK1ZyXh46tcSwQKPK3lruh8IJd5feu55XVZx4vOkbb2uqrNdIF51sgsadYT533SdpA==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /popmotion/11.0.5:
