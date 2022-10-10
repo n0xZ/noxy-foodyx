@@ -8,7 +8,7 @@ import { Icon } from '@iconify/react'
 
 function NavMenu() {
 	const navigate = useNavigate()
-	const dispatch = useAppDispatch()
+
 	const SignOut = () => {
 		navigate('/')
 		signOut(auth)
@@ -76,10 +76,12 @@ export default function HomeOutlet() {
 
 	return (
 		<>
-			<header className="px-8 py-4 ">
+			<header className="p-4  top-0 sticky bg-white z-10 w-full	">
 				<nav className="flex flex-row items-center justify-between container mx-auto max-w-5xl">
 					<h1>
-						<NavLink to="/home/general">Proyix</NavLink>
+						<NavLink to="/home/general" className="font-bold text-lg">
+							Foodyx
+						</NavLink>
 					</h1>
 					<ul className="xl:flex flex-row items-center space-x-4 hidden ">
 						<li>
