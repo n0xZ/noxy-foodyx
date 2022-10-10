@@ -1,5 +1,5 @@
 import { Recipe } from '~/types'
-
+import { toast } from 'react-hot-toast'
 const getActualFavourites = () => {
 	const actualFavourites = JSON.parse(
 		String(localStorage.getItem('favouritesRecipes'))
@@ -23,15 +23,22 @@ export const useFavorites = () => {
 			newFavourites.push(item)
 			localStorage.setItem('favouritesRecipes', JSON.stringify(newFavourites))
 			setFavourites(newFavourites)
+			toast.success('Receta agregada a favoritos!')
 		} else {
 			const existingFavourites = JSON.parse(
 				String(localStorage.getItem('favouritesRecipes'))
 			) as Recipe[]
+			if (!existingFavourites.some((el) => el.id === item.id)) {
+				existingFavourites.push(item)
 
-			existingFavourites.push(item)
-
-			localStorage.setItem('favouritesRecipes', JSON.stringify(existingFavourites))
-			setFavourites(existingFavourites)
+				localStorage.setItem(
+					'favouritesRecipes',
+					JSON.stringify(existingFavourites)
+				)
+				setFavourites(existingFavourites)
+				toast.success('Nueva receta agregada a favoritos!')
+			} else
+				toast.error('No se puede agregar una receta ya existente en favoritos')
 		}
 	}
 	const removeFromLocalStorage = (item: Recipe) => {
