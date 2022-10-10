@@ -1,7 +1,6 @@
 import { useAppDispatch } from '~/redux/hooks'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
 import { auth } from '~/lib/firebase'
-import { removeUser, setUser } from '~/redux/reducers/auth'
 
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
@@ -64,15 +63,15 @@ function NavMenu() {
 
 export default function HomeOutlet() {
 	const navigate = useNavigate()
-	const dispatch = useAppDispatch()
+
 	const SignOut = () => {
 		navigate('/')
 		signOut(auth)
 	}
 	onAuthStateChanged(auth, (user) => {
-		if (user) {
-			dispatch(setUser({ userInfo: user }))
-		} else dispatch(removeUser())
+		if (!user) {
+			navigate('/login')
+		}
 	})
 
 	return (
