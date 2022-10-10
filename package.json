@@ -23,6 +23,7 @@
     "zod": "^3.19.1"
   },
   "devDependencies": {
+    "@iconify/react": "^4.0.0",
     "@playwright/test": "^1.27.0",
     "@types/node": "^18.7.22",
     "@types/react": "^18.0.17",
