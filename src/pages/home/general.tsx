@@ -1,7 +1,13 @@
 import { useFavorites } from '~/hooks/useFavorites'
 import { Recipe } from '~/types'
 
-function FavouriteRecipe({ recipe }: { recipe: Recipe }) {
+function FavouriteRecipe({
+	recipe,
+	removeFromFavourites,
+}: {
+	recipe: Recipe
+	removeFromFavourites: (item: Recipe) => void
+}) {
 	const reducedTags =
 		recipe.tags.length > 3 ? recipe.tags.slice(0, 3) : recipe.tags
 	return (
@@ -30,19 +36,31 @@ function FavouriteRecipe({ recipe }: { recipe: Recipe }) {
 					dangerouslySetInnerHTML={{ __html: recipe.description }}
 				></div>
 			</div>
+			<button
+				onClick={() => removeFromFavourites(recipe)}
+				className="px-8 py-4 rounded-lg bg-light-500 w-full text-orange-400 hover:bg-orange-200 duration-100 ease-in-out"
+			>
+				Quitar de mi lista de favoritos
+			</button>
 		</aside>
 	)
 }
 
 function FavouriteRecipes({
 	favouriteRecipes,
+	removeFromFavourites,
 }: {
 	favouriteRecipes: Recipe[]
+	removeFromFavourites: (item: Recipe) => void
 }) {
 	return (
 		<article className="grid xl:grid-cols-2 grid-cols-1 place-items-center container mx-auto gap-7">
 			{favouriteRecipes.map((recipe) => (
-				<FavouriteRecipe recipe={recipe} key={recipe.id} />
+				<FavouriteRecipe
+					removeFromFavourites={removeFromFavourites}
+					recipe={recipe}
+					key={recipe.id}
+				/>
 			))}
 		</article>
 	)
@@ -61,13 +79,16 @@ function EmptyFavourites() {
 }
 
 export default function HomePage() {
-	const { favourites } = useFavorites()
+	const { favourites, removeFromLocalStorage } = useFavorites()
 
 	if (!favourites) return <EmptyFavourites />
 	return (
 		<>
 			<h2 className="text-center text-2xl mb-12">Mis recetas favoritas</h2>
-			<FavouriteRecipes favouriteRecipes={favourites} />
+			<FavouriteRecipes
+				removeFromFavourites={removeFromLocalStorage}
+				favouriteRecipes={favourites}
+			/>
 		</>
 	)
 }
