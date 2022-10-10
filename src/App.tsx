@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './lib/firebase'
 import { useAppDispatch } from './redux/hooks'
 import { removeUser, setUser } from './redux/reducers/auth'
+import { RecipesSkeleton } from './components/skeleton/RecipesSkeleton'
 
 const Landing = lazy(() => import('./pages/landing'))
 const Login = lazy(() => import('./pages/login'))
@@ -49,7 +50,14 @@ function App() {
 				}
 			>
 				<Route path="general" element={<Home />} />
-				<Route path="recipes" element={<Recipes />} />
+				<Route
+					path="recipes"
+					element={
+						<Suspense fallback={<RecipesSkeleton />}>
+							<Recipes />
+						</Suspense>
+					}
+				/>
 			</Route>
 		</Routes>
 	)
