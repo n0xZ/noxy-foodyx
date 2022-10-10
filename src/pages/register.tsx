@@ -6,8 +6,7 @@ import type { FirebaseError } from 'firebase/app'
 import { handleFirebaseErrors } from '~/utils/firebase-errors'
 import { auth } from '~/lib/firebase'
 import { FormField } from '~/components/Form/FormField'
-import { setUser } from '~/redux/reducers/auth'
-import { useAppDispatch } from '~/redux/hooks'
+
 
 export const registerValidator = z.object({
 	email: z
@@ -98,8 +97,11 @@ export default function Register() {
 						disabled={isLoading}
 						name="submit-login"
 					>
-						{!isLoading ? 'Registrarse en proyix' : 'Cargando...'}
+						{!isLoading ? 'Crear cuenta' : 'Cargando...'}
 					</button>
+					<Link to="/login" className="text-center">
+						Ya poseo una cuenta
+					</Link>
 					<span className="text-red-500 h-9 ">
 						{isError && handleFirebaseErrors(error.message)}
 					</span>
