@@ -2,7 +2,7 @@ import { Recipe } from '~/types'
 
 const getActualFavourites = () => {
 	const actualFavourites = JSON.parse(
-		String(localStorage.getItem('selected-heroes'))
+		String(localStorage.getItem('favouritesRecipes'))
 	) as Recipe[]
 	return actualFavourites
 }
@@ -16,38 +16,38 @@ export const useFavorites = () => {
 		}
 	}, [])
 
-	const addHeroToLocalStorage = (char: Recipe) => {
-		if (localStorage.getItem('selected-heroes') === null) {
+	const addToLocalStorage = (item: Recipe) => {
+		if (localStorage.getItem('favouritesRecipes') === null) {
 			const newFavourites = [] as Recipe[]
 
-			newFavourites.push(char)
-			localStorage.setItem('selected-heroes', JSON.stringify(newFavourites))
+			newFavourites.push(item)
+			localStorage.setItem('favouritesRecipes', JSON.stringify(newFavourites))
 			setFavourites(newFavourites)
 		} else {
 			const existingFavourites = JSON.parse(
-				String(localStorage.getItem('selected-heroes'))
+				String(localStorage.getItem('favouritesRecipes'))
 			) as Recipe[]
 
-			existingFavourites.push(char)
+			existingFavourites.push(item)
 
-			localStorage.setItem('selected-heroes', JSON.stringify(existingFavourites))
+			localStorage.setItem('favouritesRecipes', JSON.stringify(existingFavourites))
 			setFavourites(existingFavourites)
 		}
 	}
-	const removeHeroFromLocalStorage = (char: Recipe) => {
+	const removeFromLocalStorage = (item: Recipe) => {
 		const existingFavourites = JSON.parse(
-			String(localStorage.getItem('selected-heroes'))
+			String(localStorage.getItem('favouritesRecipes'))
 		) as Recipe[]
 		const filteredFavourites = existingFavourites.filter(
-			(fav) => char.id !== fav.id
+			(fav) => item.id !== fav.id
 		)
-		localStorage.setItem('selected-heroes', JSON.stringify(filteredFavourites))
+		localStorage.setItem('favouritesRecipes', JSON.stringify(filteredFavourites))
 
 		setFavourites(filteredFavourites)
 	}
 	return {
 		favourites,
-		addHeroToLocalStorage,
-		removeHeroFromLocalStorage,
+		addToLocalStorage,
+		removeFromLocalStorage,
 	}
 }
