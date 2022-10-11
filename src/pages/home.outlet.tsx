@@ -1,10 +1,8 @@
-import { useAppDispatch } from '~/redux/hooks'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { auth } from '~/lib/firebase'
-
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { Icon } from '@iconify/react'
+import { auth } from '~/lib/firebase'
 
 function NavMenu() {
 	const navigate = useNavigate()
@@ -65,7 +63,6 @@ export default function HomeOutlet() {
 	const navigate = useNavigate()
 
 	const SignOut = () => {
-		navigate('/')
 		signOut(auth)
 	}
 	onAuthStateChanged(auth, (user) => {
@@ -79,7 +76,12 @@ export default function HomeOutlet() {
 			<header className="p-4  top-0 sticky bg-white z-10 w-full	">
 				<nav className="flex flex-row items-center justify-between container mx-auto max-w-5xl">
 					<h1>
-						<NavLink to="/home/general" className="font-bold text-lg">
+						<NavLink
+							to="/home/general"
+							className={({ isActive }) =>
+								`font-bold text-lg ${isActive ? 'text-orange-500 ' : 'text-dark-50'}`
+							}
+						>
 							Foodyx
 						</NavLink>
 					</h1>
@@ -87,9 +89,13 @@ export default function HomeOutlet() {
 						<li>
 							<NavLink
 								to="/home/recipes"
-								className="px-4 py-4 rounded-lg   no-underline text-dark-50"
+								className={({ isActive }) =>
+									`px-4 py-4 rounded-lg   no-underline ${
+										isActive ? 'text-orange-500' : 'text-dark-50'
+									}`
+								}
 							>
-								Buscar recetas
+								Ver recetas
 							</NavLink>
 						</li>
 						<li>

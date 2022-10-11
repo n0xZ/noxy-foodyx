@@ -1,6 +1,5 @@
 import { Routes } from 'react-router-dom'
 import { Suspense } from 'react'
-import { AnimatePresence } from 'framer-motion'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from './lib/firebase'
 import { useAppDispatch } from './redux/hooks'
