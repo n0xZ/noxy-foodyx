@@ -3,6 +3,7 @@ import { ErrorBoundary, FallbackProps } from 'react-error-boundary'
 import toast from 'react-hot-toast'
 import { RecipeList } from '~/components/recipe/RecipeList'
 import { RecipesSkeleton } from '~/components/skeleton/RecipesSkeleton'
+import { usePagination } from '~/hooks/usePagination'
 
 import { getRecipes } from '~/services/recipes'
 
@@ -20,19 +21,26 @@ function ErrorFallback({ error, resetErrorBoundary }: FallbackProps) {
 export default function RecipesPage() {
 	const {
 		data: recipes,
+		isSuccess,
 		isLoading,
 		isError,
 	} = useQuery(['recipes'], getRecipes, {
 		onError(err: Error) {
 			toast.error(`Ups! Ha ocurrido un error: ${err.message}`)
+			throw new Error(err.message)
 		},
 	})
+	const { contentPaginated, heroContainer, setupContent } = usePagination(
+		isSuccess,
+		recipes?.results
+	)
 	if (isLoading && !isError)
 		return (
 			<section className="container mx-auto max-w-5xl mt-20">
 				<RecipesSkeleton />
 			</section>
 		)
+
 	return (
 		<ErrorBoundary
 			FallbackComponent={ErrorFallback}
@@ -44,7 +52,7 @@ export default function RecipesPage() {
 						<h2 className="text-center xl:text-3xl text-2xl font-bold mb-5 mt-3">
 							Lista de recetas
 						</h2>
-						<RecipeList recipes={recipes.results} />
+						<RecipeList recipes={contentPaginated} container={heroContainer} />
 					</>
 				)}
 			</section>
