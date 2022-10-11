@@ -82,7 +82,7 @@ export default function Register() {
 							errors?.formErrors.fieldErrors.email &&
 							errors?.formErrors.fieldErrors.email[0]
 						}
-						data-test="email-input"
+						data-test-id="email-input"
 					/>
 					<FormField
 						label="Contraseña"
@@ -107,7 +107,7 @@ export default function Register() {
 					<Link to="/login" className="text-center">
 						Ya poseo una cuenta
 					</Link>
-					<span className="text-red-500 h-9 ">
+					<span className="text-red-500 h-9 " data-test-id="firebase-errors">
 						{isError && handleFirebaseErrors(error.message)}
 					</span>
 				</form>
