@@ -6,8 +6,7 @@ import { signInWithEmailAndPassword } from 'firebase/auth'
 import { FormField } from '~/components/Form/FormField'
 import { handleFirebaseErrors } from '~/utils/firebase-errors'
 import { auth } from '~/lib/firebase'
-import { useAppDispatch } from '~/redux/hooks'
-import { setUser } from '~/redux/reducers/auth'
+import LoginLandingImg from '/login-img.svg'
 export const loginValidator = z.object({
 	email: z
 		.string()
@@ -50,16 +49,22 @@ export default function Login() {
 	}
 	if (user) return <Navigate to="/home/general" replace={true} />
 	return (
-		<section className="h-screen hero ">
-			<article className="grid lg:grid-cols-2 xl:grid-cols-2 grid-cols-1 h-full place-items-center container mx-auto">
+		<section className="h-screen  ">
+			<article className="grid lg:grid-cols-2 xl:grid-cols-2 grid-cols-1 h-full place-items-center container mx-auto text-base">
 				<aside className="text-center lg:text-left">
-					<h1 className="text-4xl font-bold text-center">
+					<h1 className="text-2xl font-bold text-center">
 						Encuentra las recetas que facilitarán tu día a día!
 					</h1>
 					<p className="py-6 text-center">
-						En Foodyx, podrás encontrar las recetas que no conocías, pero que tampoco
-						sabías que necesitabas!
+						Estás a nada de poder encontrar las recetas que te salvarán tus mediodías
+						y noches en Foodyx!
 					</p>
+					<img
+						src={LoginLandingImg}
+						alt="Ilustración en login, que representa a una de las tantas recetas que se encuentran dentro de Foodyx."
+						className="rounded-lg aspect-video  p-2"
+					
+					/>
 				</aside>
 
 				<form
