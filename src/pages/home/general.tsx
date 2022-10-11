@@ -21,7 +21,10 @@ function FavouriteRecipe({
 					className="rounded-lg aspect-video"
 					alt={recipe.thumbnail_alt_text}
 				/>
-				<h3 className="font-bold h-12 mb-6 mt-4 xl:text-2xl text-xl">
+				<h3
+					className="font-bold h-12 mb-6 mt-4 xl:text-2xl text-xl"
+					data-test-id={`${recipe.name}-recipe`}
+				>
 					{recipe.name}
 				</h3>
 				<div className="flex flex-row items-center justify-center space-x-3 w-full">
@@ -54,7 +57,10 @@ function FavouriteRecipes({
 	removeFromFavourites: (item: Recipe) => void
 }) {
 	return (
-		<article className="grid xl:grid-cols-2 grid-cols-1 place-items-center container mx-auto gap-7">
+		<article
+			className="grid xl:grid-cols-2 grid-cols-1 place-items-center container mx-auto gap-7"
+			data-test-id="favourite-recipes"
+		>
 			{favouriteRecipes.map((recipe) => (
 				<FavouriteRecipe
 					removeFromFavourites={removeFromFavourites}
@@ -69,7 +75,9 @@ function FavouriteRecipes({
 function EmptyFavourites() {
 	return (
 		<article className="flex flex-col justify-center h-screen items-center">
-			<p>Parece que no tienes recetas escogidas por el momento.</p>
+			<p data-test-id="empty-favourites">
+				Parece que no tienes recetas escogidas por el momento.
+			</p>
 			<p>
 				Para ver la lista de recetas,{' '}
 				<Link to="/home/recipes"> Haga click aquí</Link>

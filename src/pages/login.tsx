@@ -106,7 +106,7 @@ export default function Login() {
 					<Link to="/register" className="text-center">
 						No tengo una cuenta
 					</Link>
-					<span className="text-red-500 h-9 ">
+					<span className="text-red-500 h-9 " data-test-id="firebase-errors">
 						{isError && handleFirebaseErrors(error.message)}
 					</span>
 				</form>

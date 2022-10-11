@@ -81,6 +81,7 @@ export default function HomeOutlet() {
 							className={({ isActive }) =>
 								`font-bold text-lg ${isActive ? 'text-orange-500 ' : 'text-dark-50'}`
 							}
+							data-test-id="home"
 						>
 							Foodyx
 						</NavLink>
@@ -94,6 +95,7 @@ export default function HomeOutlet() {
 										isActive ? 'text-orange-500' : 'text-dark-50'
 									}`
 								}
+								data-test-id="view-recipes"
 							>
 								Ver recetas
 							</NavLink>

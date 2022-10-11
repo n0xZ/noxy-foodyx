@@ -17,7 +17,7 @@ export const FormField = ({ label, name, type, errors, ...rest }: Field) => {
 				className="w-full  rounded-md border-2 border-orange-300 focus:outline-none focus:ring focus:border-orange-400 focus:ring-orange-500 "
 				{...rest}
 			/>
-			<span className="text-red-500 h-9 " data-test="input-errors">
+			<span className="text-red-500 h-9 " data-test-id={`${name}-errors`}>
 				{errors && errors}
 			</span>
 		</aside>

@@ -48,10 +48,14 @@ function ViewRecipeContent({ isOpen, recipe, closeModal }: ViewRecipeProps) {
 								{recipe.instructions ? (
 									<ul className="flex flex-col justify-center items-center space-y-3 max-w-md mx-auto">
 										{recipe.instructions.map((inst) => (
-											<li className='list-disc container mx-auto px-3 mt-4' key={inst.id}>{inst.display_text}</li>
+											<li className="list-disc container mx-auto px-3 mt-4" key={inst.id}>
+												{inst.display_text}
+											</li>
 										))}
 									</ul>
-								):<p>No disponible 😞</p>}
+								) : (
+									<p>No disponible 😞</p>
+								)}
 								<button
 									type="button"
 									className="inline-flex mt-4 justify-center rounded-md border border-transparent bg-orange-300 px-4 py-2 text-base	 font-medium text-orange-900 hover:bg-orange-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
@@ -110,6 +114,7 @@ export function RecipeItem({ recipe }: Props) {
 					Ver detalles de receta
 				</button>
 				<button
+					data-test-id={`add-${recipe.name}`}
 					onClick={() => addToLocalStorage(recipe)}
 					className="px-8 py-4 rounded-lg bg-light-500 w-full text-orange-400 hover:bg-orange-200 duration-100 ease-in-out"
 				>

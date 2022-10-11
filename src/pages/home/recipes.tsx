@@ -36,7 +36,7 @@ export default function RecipesPage() {
 	)
 	if (isLoading && !isError)
 		return (
-			<section className="container mx-auto max-w-5xl mt-20">
+			<section className="container mx-auto max-w-5xl mt-20" data-test-id="loading-skeleton">
 				<RecipesSkeleton />
 			</section>
 		)
