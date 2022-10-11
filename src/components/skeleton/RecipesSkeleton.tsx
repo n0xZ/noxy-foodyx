@@ -8,7 +8,7 @@ export function RecipesSkeleton() {
 					<div className=" h-full bg-gray-300 "></div>
 				</div>
 				<button className="px-8 py-4 rounded-lg bg-light-500 w-full text-orange-400 hover:bg-orange-200 duration-100 ease-in-out">
-					Loading...
+					Cargando...
 				</button>
 			</aside>
 			<aside className="h-xl w-96 rounded-md bg-light-100  flex flex-col  justify-between items-center text-center p-2 space-y-2">
@@ -18,7 +18,7 @@ export function RecipesSkeleton() {
 					<div className=" h-full bg-gray-300 "></div>
 				</div>
 				<button className="px-8 py-4 rounded-lg bg-light-500 w-full text-orange-400 hover:bg-orange-200 duration-100 ease-in-out">
-					Loading...
+					Cargando...
 				</button>
 			</aside>
 			<aside className="h-xl w-96 rounded-md bg-light-100  flex flex-col  justify-between items-center text-center p-2 space-y-2">
@@ -28,7 +28,7 @@ export function RecipesSkeleton() {
 					<div className=" h-full bg-gray-300 "></div>
 				</div>
 				<button className="px-8 py-4 rounded-lg bg-light-500 w-full text-orange-400 hover:bg-orange-200 duration-100 ease-in-out">
-					Loading...
+					Cargando...
 				</button>
 			</aside>
 			<aside className="h-xl w-96 rounded-md bg-light-100  flex flex-col  justify-between items-center text-center p-2 space-y-2">
@@ -38,7 +38,7 @@ export function RecipesSkeleton() {
 					<div className=" h-full bg-gray-300 "></div>
 				</div>
 				<button className="px-8 py-4 rounded-lg bg-light-500 w-full text-orange-400 hover:bg-orange-200 duration-100 ease-in-out">
-					Loading...
+					Cargando...
 				</button>
 			</aside>
 		</article>
