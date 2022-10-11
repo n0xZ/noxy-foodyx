@@ -89,7 +89,8 @@ function EmptyFavourites() {
 export default function HomePage() {
 	const { favourites, removeFromLocalStorage } = useFavorites()
 
-	if (!favourites) return <EmptyFavourites />
+	if (!favourites || (favourites && favourites.length === 0))
+		return <EmptyFavourites />
 	return (
 		<>
 			<h2 className="text-center text-2xl mb-12">Mis recetas favoritas</h2>
