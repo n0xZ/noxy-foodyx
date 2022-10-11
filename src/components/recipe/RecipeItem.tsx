@@ -12,7 +12,6 @@ type ViewRecipeProps = {
 	recipe: Recipe
 }
 function ViewRecipeContent({ isOpen, recipe, closeModal }: ViewRecipeProps) {
-
 	return (
 		<Transition appear show={isOpen} as={Fragment}>
 			<Dialog as="div" className="relative z-10" onClose={closeModal}>
@@ -38,20 +37,27 @@ function ViewRecipeContent({ isOpen, recipe, closeModal }: ViewRecipeProps) {
 							leaveFrom="opacity-100 scale-100"
 							leaveTo="opacity-0 scale-95"
 						>
-							<Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl  bg-white p-6 text-left align-middle shadow-xl transition-all">
+							<Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded-2xl  bg-white p-6 text-left align-middle shadow-xl transition-all">
 								<Dialog.Title
 									as="h3"
 									className="text-lg  font-bold leading-6 text-gray-900 mb-2"
 								>
 									{recipe.name}
 								</Dialog.Title>
-
+								<h4 className="font-bold text-lg">Instrucciones</h4>
+								{recipe.instructions ? (
+									<ul className="flex flex-col justify-center items-center space-y-3 max-w-md mx-auto">
+										{recipe.instructions.map((inst) => (
+											<li className='list-disc container mx-auto px-3 mt-4' key={inst.id}>{inst.display_text}</li>
+										))}
+									</ul>
+								):<p>No disponible 😞</p>}
 								<button
 									type="button"
 									className="inline-flex mt-4 justify-center rounded-md border border-transparent bg-orange-300 px-4 py-2 text-base	 font-medium text-orange-900 hover:bg-orange-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 focus-visible:ring-offset-2"
 									onClick={closeModal}
 								>
-									Cerrar video
+									Cerrar detalles
 								</button>
 							</Dialog.Panel>
 						</Transition.Child>
