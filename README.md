@@ -14,7 +14,18 @@ $  cd proyix
 $  pnpm install --shamefully-hoist
 $  pnpm dev
 ```
-### Tecnologías utilizadas
+### ¿Cómo puedo correr los tests?
+
+Para correr los tests, se deberá ingresar los siguientes comandos en tu terminal
+
+```sh
+$  git clone https://github.com/n0xZ/proyix.git
+$  cd proyix
+$  pnpm install --shamefully-hoist
+$  pnpm e2e
+```
+
+#### Tecnologías utilizadas
 
 Proyix utiliza el siguiente stack:
 - [React](https://reactjs.org/)
