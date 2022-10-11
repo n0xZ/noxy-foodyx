@@ -81,17 +81,17 @@ export default function Login() {
 							errors?.formErrors.fieldErrors.email &&
 							errors?.formErrors.fieldErrors.email[0]
 						}
-						data-test="email-input"
+						data-test-id="email-input"
 					/>
 					<FormField
 						label="Contraseña"
 						name="password"
 						type="password"
 						errors={
-							errors?.formErrors.fieldErrors.email &&
-							errors?.formErrors.fieldErrors.email[0]
+							errors?.formErrors.fieldErrors.password &&
+							errors?.formErrors.fieldErrors.password[0]
 						}
-						data-test="password-input"
+						data-test-id="password-input"
 					/>
 
 					<button
@@ -99,6 +99,7 @@ export default function Login() {
 						className="px-8 py-4 bg-orange-400 font-bold text-light-50 rounded-lg "
 						disabled={isLoading}
 						name="submit-login"
+						data-test-id="login-button"
 					>
 						{!isLoading ? 'Iniciar sesión' : 'Iniciando...'}
 					</button>

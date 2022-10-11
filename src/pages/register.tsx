@@ -89,10 +89,10 @@ export default function Register() {
 						name="password"
 						type="password"
 						errors={
-							errors?.formErrors.fieldErrors.email &&
-							errors?.formErrors.fieldErrors.email[0]
+							errors?.formErrors.fieldErrors.password &&
+							errors?.formErrors.fieldErrors.password[0]
 						}
-						data-test="password-input"
+						data-test-id="password-input"
 					/>
 
 					<button
@@ -100,6 +100,7 @@ export default function Register() {
 						className="px-8 py-4 bg-orange-400 font-bold text-light-50 rounded-lg "
 						disabled={isLoading}
 						name="submit-login"
+						data-test-id="register-button"
 					>
 						{!isLoading ? 'Crear cuenta' : 'Cargando...'}
 					</button>
