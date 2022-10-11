@@ -27,35 +27,21 @@ export interface Recipe {
 	yields: string
 	video_id: number | null
 	thumbnail_url: string
-	credits: Brand[]
-	is_one_top: boolean
-	servings_noun_plural: ServingsNounPlural
-	sections: Section[]
-	nutrition: Nutrition
-	inspired_by_url: null
 	original_video_url: null | string
 	buzz_id: null
 	show: Show
 	description: string
-	draft_status: DraftStatus
-	country: Country
-	language: Language
-	servings_noun_singular: ServingsNounSingular
-	brand_id: number | null
+
 	thumbnail_alt_text: string
 	cook_time_minutes: number | null
 	brand: Brand | null
 	topics: Topic[]
 	promotion: Promotion
 	video_url: null | string
-	beauty_url: null | string
-	slug: string
-	show_id: number
+
 	name: string
 	num_servings: number
 	instructions: Instruction[]
-	compilations: Compilation[]
-	tips_and_ratings_enabled: boolean
 }
 
 export enum AspectRatio {
@@ -137,16 +123,6 @@ export interface Instruction {
 	start_time: number
 	appliance: null | string
 	end_time: number
-}
-
-export interface Nutrition {
-	carbohydrates?: number
-	fiber?: number
-	updated_at?: Date
-	protein?: number
-	fat?: number
-	calories?: number
-	sugar?: number
 }
 
 export enum NutritionVisibility {
